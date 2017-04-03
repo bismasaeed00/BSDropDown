@@ -18,6 +18,17 @@
     
     CGRect frame=CGRectMake(originPoint.x, originPoint.y, width, (height*options.count)+12);
     
+    if (frame.origin.y+frame.size.height>[UIScreen mainScreen].bounds.size.height) {
+        
+        frame.size.height=[UIScreen mainScreen].bounds.size.height-frame.origin.y-12;
+        
+    }
+    
+    if (frame.origin.x+frame.size.width>[UIScreen mainScreen].bounds.size.width){
+        
+         frame.size.width=[UIScreen mainScreen].bounds.size.width-frame.origin.x-12;
+    }
+    
     if ((self = [super initWithFrame:frame])) {
         
         rowHeight=height;
