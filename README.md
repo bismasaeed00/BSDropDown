@@ -20,6 +20,8 @@ ddView.delegate=self;
 
 ```
 You can customize it's backgroud color, font and text color using the commented code above.
+The colour of menu button will be the same as defined for the text colour of options in dropdown.
+
 ### Delegate
 Implement the delegate method to know when user cliceked an option
 
