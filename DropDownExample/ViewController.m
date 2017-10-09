@@ -29,10 +29,10 @@
     
     BSDropDown *ddView=[[BSDropDown alloc] initWithWidth:120 withHeightForEachRow:50 originPoint:btn.center withOptions:@[@"option 1",@"option 2",@"option 3",@"option 4",@"option 5"]];
     ddView.delegate=self;
-//    ddView.dropDownBGColor=[UIColor yellowColor];
-//    ddView.dropDownTextColor=[UIColor greenColor];
-//    ddView.dropDownFont=[UIFont systemFontOfSize:13];
-    [self.view addSubview:ddView];
+    ddView.dropDownBGColor=[UIColor blueColor];
+    ddView.dropDownTextColor=[UIColor yellowColor];
+    ddView.dropDownFont=[UIFont systemFontOfSize:13];
+    [ddView addAsSubviewTo:self.view];
     
 }
 

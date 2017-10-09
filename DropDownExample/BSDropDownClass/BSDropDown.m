@@ -8,10 +8,21 @@
 
 #import "BSDropDown.h"
 
+@interface BSDropDown()
+
+@property (nonatomic,strong) UIFont *dropDownFont;
+@property (nonatomic,strong) UIColor *dropDownBGColor;
+@property (nonatomic,strong) UIColor *dropDownTextColor;
+
+@property (nonatomic,strong) UITableView *tblView;
+
+@end
+
 @implementation BSDropDown{
     NSArray *optionsArry;
     NSString *imgName;
     float rowHeight;
+    UIButton *menuBtn;
 }
 - (id) initWithWidth:(float)width withHeightForEachRow:(float)height originPoint:(CGPoint)originPoint withOptions:(NSArray*)options{
     
@@ -48,7 +59,9 @@
     self.clipsToBounds=YES;
     self.layer.cornerRadius=5.0;
     
-    UIButton *menuBtn=[[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-30,4,30,30)];
+    menuBtn=[[UIButton alloc] initWithFrame:CGRectMake(frame.size.width-30,4,30,30)];
+    
+    
     
     [menuBtn setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
     
@@ -68,7 +81,10 @@
 
 -(void)manuPressed{
     
-    [self removeFromSuperview];
+    [UIView transitionWithView:self.superview duration:0.5
+                       options:UIViewAnimationOptionTransitionCrossDissolve //change to whatever animation you like
+                    animations:^ { [self removeFromSuperview]; }
+                    completion:nil];
 }
 
 #pragma mark - TableView
@@ -108,6 +124,44 @@
     
     return rowHeight;
 }
+-(void)addAsSubviewTo:(UIView*)parentView{
+    
+    NSArray *subviews=[parentView subviews];
+    BOOL ddAlreadyExisted=NO;
+    for (UIView *sbvew in subviews) {
+        
+        if ([sbvew isKindOfClass:[BSDropDown class]]) {
+            
+            ddAlreadyExisted=YES;
+            break;
+        }
+    }
+    
+    if (!ddAlreadyExisted) {
+        
+        [UIView transitionWithView:parentView duration:0.5
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+         
+                        animations:^ { [parentView addSubview:self]; }
+                        completion:nil];
+    }
+}
 
+-(void)setDropDownTextColor:(UIColor *)textColor{
+    
+    _dropDownTextColor=textColor;
+    
+    [menuBtn setImage:[[menuBtn imageForState:UIControlStateNormal] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    [menuBtn setTintColor:_dropDownTextColor];
+    
+}
+-(void)setDropDownFont:(UIFont *)font{
+    
+    _dropDownFont=font;
+}
+-(void)setDropDownBGColor:(UIColor *)color{
+    
+    _dropDownBGColor=color;
+}
 
 @end
